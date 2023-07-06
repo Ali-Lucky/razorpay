@@ -1,7 +1,9 @@
 const express = require('express');
+const Razorpay = require('razorpay');
 
 const app = express();
 
+app.use(express.static("./public"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -25,14 +27,14 @@ app.post("/order", async (req, res) => {
             key2: "value2"
         }
     };
-
     const myOrder = await instance.orders.create(options);
 
     res.status(200).json({
         success: true,
         amount,
         order: myOrder
-    })
+    });
+
 });
 
 app.listen(4000, () => {
